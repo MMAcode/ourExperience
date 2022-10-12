@@ -1,0 +1,5 @@
+echo "miroBash01 initialised"
+alias rt='. ~/.bashrc'
+alias mm='cat ~/miroBash01'
+alias d='sudo docker'
+alias xx='echo hi'
