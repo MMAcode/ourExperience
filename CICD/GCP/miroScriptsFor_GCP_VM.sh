@@ -27,3 +27,10 @@ installSoftware(){
   sudo apt install postgresql postgresql-contrib
   set +e
 }
+
+#does not seem working:
+updatePostgresPassword(){ #pass psw as argument
+  sudo -u postgres psql -c "ALTER USER postgres PASSWORD '$1';"
+history -c # to clear history of saved commands
+history # check it was erased
+}
