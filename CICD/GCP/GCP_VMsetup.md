@@ -1,3 +1,10 @@
+# install zsh on linux sustem
+identify which shell is set as default
+  echo $SHELL
+sudo apt-get install zsh
+set as default
+  sudo chsh -s /bin/zsh
+https://askubuntu.com/a/660014
 
 
 # Link VM to custom domain
@@ -14,7 +21,9 @@ or $ ssh vm
 
 # copy bash scripts to VM
 copy file to VM: from root directory of this git project run:
+ (https://cloud.google.com/compute/docs/instances/transfer-files)
 $ gcloud compute scp --zone "us-central1-c" ~/projects/miro/ourExperience/CICD/GCP/miroScriptsFor_GCP_VM.sh instance-1:~/
+$ gcloud compute scp --zone "us-central1-c" ~/scripts instance-1:~/
 
 then in the GCP cli run:
 $ echo ". ~/miroScriptsFor_GCP_VM.sh" >>./.bashrc && cat ./.bashrc

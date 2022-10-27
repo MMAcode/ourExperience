@@ -29,8 +29,13 @@ installSoftware(){
 }
 
 #does not seem working:
-updatePostgresPassword(){ #pass psw as argument
-  sudo -u postgres psql -c "ALTER USER postgres PASSWORD '$1';"
-history -c # to clear history of saved commands
-history # check it was erased
-}
+#updatePostgresPassword(){ #pass psw as argument
+##  sudo -u postgres psql -c "ALTER USER postgres PASSWORD '$1';"
+##  history -c # to clear history of saved commands
+##  history # check it was erased
+
+#psql -U postgres postgres (= username, dbName)
+then in psql
+
+
+#}
