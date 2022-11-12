@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)https://damonvjanis.medium.com/media/345fa7ea134dbf2a3f754bcd71cb0ee8 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>deploy.sh – Medium</title><meta name="description" content="Instantly share code, notes, and snippets. You can&#39;t perform that action at this time. You signed in with another tab or window. You signed out in another tab or window. Reload to refresh your session. Reload to refresh your session. We use optional third-party analytics cookies to understand how you use GitHub.com so we can build better products."><meta name="twitter:widgets:csp" content="on"><meta name="robots" content="noindex"><!--<base target="_blank">--><base href="." target="_blank"><style>body {text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: "ff-tisa-web-pro", Georgia, Cambria, "Times New Roman", Times, serif; font-weight: 400; color: #333332; font-size: 18px; line-height: 1.4; margin: 0; background-color: white; overflow: hidden;}iframe {max-width: 100%;}</style></head><body><style>.gist .gist-file { margin-bottom: 0 !important; }.gist { text-rendering: auto; }</style><script src="./f60e7efaba10eeabb830f3e9e97a10c9.js" charset="utf-8"></script><link rel="stylesheet" href="./gist-embed-598610950903.css"><div id="gist106299025" class="gist">
+    <div class="gist-file" translate="no">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-deploy-sh" class="file my-2">
+    
+    <div itemprop="text" class="Box-body p-0 blob-wrapper data type-shell  ">
+
+        
+<div class="js-check-bidi js-blob-code-container blob-code-content">
+
+  <template class="js-file-alert-template"></template>
+<template class="js-line-alert-template"></template>
+
+  <table data-hpc="" class="highlight tab-size js-file-line-container js-code-nav-container js-tagsearch-file" data-tab-size="8" data-paste-markdown-skip="" data-tagsearch-lang="Shell" data-tagsearch-path="deploy.sh">
+        <tbody><tr>
+          <td id="file-deploy-sh-L1" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="1"></td>
+          <td id="file-deploy-sh-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#!</span>/bin/bash</span></td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L2" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="2"></td>
+          <td id="file-deploy-sh-LC2" class="blob-code blob-code-inner js-file-line"><span class="pl-c1">set</span> -e</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L3" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="3"></td>
+          <td id="file-deploy-sh-LC3" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L4" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="4"></td>
+          <td id="file-deploy-sh-LC4" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Update to latest version of code</span></td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L5" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="5"></td>
+          <td id="file-deploy-sh-LC5" class="blob-code blob-code-inner js-file-line"><span class="pl-c1">cd</span> /home/<span class="pl-k">&lt;</span>YOUR_USERNAME<span class="pl-k">&gt;</span>/optimized_nginx</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L6" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="6"></td>
+          <td id="file-deploy-sh-LC6" class="blob-code blob-code-inner js-file-line">git fetch</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L7" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="7"></td>
+          <td id="file-deploy-sh-LC7" class="blob-code blob-code-inner js-file-line">git reset --hard origin/master</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L8" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="8"></td>
+          <td id="file-deploy-sh-LC8" class="blob-code blob-code-inner js-file-line">MIX_ENV=prod mix deps.get</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L9" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="9"></td>
+          <td id="file-deploy-sh-LC9" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L10" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="10"></td>
+          <td id="file-deploy-sh-LC10" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Optional CI steps</span></td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L11" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="11"></td>
+          <td id="file-deploy-sh-LC11" class="blob-code blob-code-inner js-file-line">CI=true mix <span class="pl-c1">test</span></td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L12" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="12"></td>
+          <td id="file-deploy-sh-LC12" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> mix credo --strict (credo is not used in example repo, commented out)</span></td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L13" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="13"></td>
+          <td id="file-deploy-sh-LC13" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L14" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="14"></td>
+          <td id="file-deploy-sh-LC14" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Build phase</span></td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L15" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="15"></td>
+          <td id="file-deploy-sh-LC15" class="blob-code blob-code-inner js-file-line"><span class="pl-k">export</span> MIX_ENV=prod</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L16" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="16"></td>
+          <td id="file-deploy-sh-LC16" class="blob-code blob-code-inner js-file-line">mix compile</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L17" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="17"></td>
+          <td id="file-deploy-sh-LC17" class="blob-code blob-code-inner js-file-line">npm install --prefix ./assets</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L18" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="18"></td>
+          <td id="file-deploy-sh-LC18" class="blob-code blob-code-inner js-file-line">npm run deploy --prefix ./assets</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L19" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="19"></td>
+          <td id="file-deploy-sh-LC19" class="blob-code blob-code-inner js-file-line">mix phx.digest</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L20" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="20"></td>
+          <td id="file-deploy-sh-LC20" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L21" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="21"></td>
+          <td id="file-deploy-sh-LC21" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Create release</span></td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L22" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="22"></td>
+          <td id="file-deploy-sh-LC22" class="blob-code blob-code-inner js-file-line">now_in_unix_seconds=<span class="pl-s"><span class="pl-pds">$(</span>date +<span class="pl-s"><span class="pl-pds">'</span>%s<span class="pl-pds">'</span></span><span class="pl-pds">)</span></span></td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L23" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="23"></td>
+          <td id="file-deploy-sh-LC23" class="blob-code blob-code-inner js-file-line">mix release --path ../releases/<span class="pl-smi">${now_in_unix_seconds}</span></td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L24" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="24"></td>
+          <td id="file-deploy-sh-LC24" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L25" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="25"></td>
+          <td id="file-deploy-sh-LC25" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Update env var file with latest release name</span></td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L26" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="26"></td>
+          <td id="file-deploy-sh-LC26" class="blob-code blob-code-inner js-file-line">sed -i <span class="pl-s"><span class="pl-pds">'</span>s/LATEST_RELEASE=.*/LATEST_RELEASE=<span class="pl-pds">'</span></span><span class="pl-smi">$now_in_unix_seconds</span><span class="pl-s"><span class="pl-pds">'</span>/g<span class="pl-pds">'</span></span> ../env_vars</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L27" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="27"></td>
+          <td id="file-deploy-sh-LC27" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L28" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="28"></td>
+          <td id="file-deploy-sh-LC28" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Find the port in use, and the available port</span></td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L29" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="29"></td>
+          <td id="file-deploy-sh-LC29" class="blob-code blob-code-inner js-file-line"><span class="pl-k">if</span> <span class="pl-s"><span class="pl-pds">$(</span>curl --output /dev/null --silent --head --fail localhost:4000<span class="pl-pds">)</span></span></td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L30" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="30"></td>
+          <td id="file-deploy-sh-LC30" class="blob-code blob-code-inner js-file-line"><span class="pl-k">then</span></td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L31" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="31"></td>
+          <td id="file-deploy-sh-LC31" class="blob-code blob-code-inner js-file-line">  port_in_use=4000</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L32" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="32"></td>
+          <td id="file-deploy-sh-LC32" class="blob-code blob-code-inner js-file-line">  open_port=4001</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L33" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="33"></td>
+          <td id="file-deploy-sh-LC33" class="blob-code blob-code-inner js-file-line"><span class="pl-k">else</span></td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L34" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="34"></td>
+          <td id="file-deploy-sh-LC34" class="blob-code blob-code-inner js-file-line">  port_in_use=4001</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L35" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="35"></td>
+          <td id="file-deploy-sh-LC35" class="blob-code blob-code-inner js-file-line">  open_port=4000</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L36" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="36"></td>
+          <td id="file-deploy-sh-LC36" class="blob-code blob-code-inner js-file-line"><span class="pl-k">fi</span></td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L37" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="37"></td>
+          <td id="file-deploy-sh-LC37" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L38" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="38"></td>
+          <td id="file-deploy-sh-LC38" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Update release env vars with new port and set non-conflicting node name</span></td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L39" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="39"></td>
+          <td id="file-deploy-sh-LC39" class="blob-code blob-code-inner js-file-line"><span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>export PORT=<span class="pl-smi">${open_port}</span><span class="pl-pds">"</span></span> <span class="pl-k">&gt;&gt;</span> ../releases/<span class="pl-smi">${now_in_unix_seconds}</span>/releases/0.1.0/env.sh</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L40" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="40"></td>
+          <td id="file-deploy-sh-LC40" class="blob-code blob-code-inner js-file-line"><span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>export RELEASE_NAME=<span class="pl-smi">${open_port}</span><span class="pl-pds">"</span></span> <span class="pl-k">&gt;&gt;</span> ../releases/<span class="pl-smi">${now_in_unix_seconds}</span>/releases/0.1.0/env.sh</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L41" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="41"></td>
+          <td id="file-deploy-sh-LC41" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L42" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="42"></td>
+          <td id="file-deploy-sh-LC42" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Start new instance of app</span></td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L43" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="43"></td>
+          <td id="file-deploy-sh-LC43" class="blob-code blob-code-inner js-file-line">sudo systemctl start my_app@<span class="pl-smi">${open_port}</span></td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L44" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="44"></td>
+          <td id="file-deploy-sh-LC44" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L45" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="45"></td>
+          <td id="file-deploy-sh-LC45" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Pause script till app is fully up</span></td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L46" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="46"></td>
+          <td id="file-deploy-sh-LC46" class="blob-code blob-code-inner js-file-line"><span class="pl-k">until</span> <span class="pl-s"><span class="pl-pds">$(</span>curl --output /dev/null --silent --head --fail localhost:<span class="pl-smi">$open_port</span><span class="pl-pds">)</span></span><span class="pl-k">;</span> <span class="pl-k">do</span></td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L47" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="47"></td>
+          <td id="file-deploy-sh-LC47" class="blob-code blob-code-inner js-file-line">  <span class="pl-c1">printf</span> <span class="pl-s"><span class="pl-pds">'</span>Waiting for app to boot...\n<span class="pl-pds">'</span></span></td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L48" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="48"></td>
+          <td id="file-deploy-sh-LC48" class="blob-code blob-code-inner js-file-line">  sleep 1</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L49" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="49"></td>
+          <td id="file-deploy-sh-LC49" class="blob-code blob-code-inner js-file-line"><span class="pl-k">done</span></td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L50" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="50"></td>
+          <td id="file-deploy-sh-LC50" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L51" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="51"></td>
+          <td id="file-deploy-sh-LC51" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Run migrations</span></td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L52" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="52"></td>
+          <td id="file-deploy-sh-LC52" class="blob-code blob-code-inner js-file-line">mix ecto.migrate</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L53" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="53"></td>
+          <td id="file-deploy-sh-LC53" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L54" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="54"></td>
+          <td id="file-deploy-sh-LC54" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Update Nginx config to direct requests to new version of app</span></td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L55" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="55"></td>
+          <td id="file-deploy-sh-LC55" class="blob-code blob-code-inner js-file-line">sudo sed -i <span class="pl-s"><span class="pl-pds">'</span>s/server 127\.0\.0\.1\:.*/server 127.0.0.1:<span class="pl-pds">'</span></span><span class="pl-smi">$open_port</span><span class="pl-cce">\;</span><span class="pl-s"><span class="pl-pds">'</span>/g<span class="pl-pds">'</span></span> /etc/nginx/sites-available/default</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L56" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="56"></td>
+          <td id="file-deploy-sh-LC56" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L57" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="57"></td>
+          <td id="file-deploy-sh-LC57" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Reload Nginx so it gracefully starts routing to new version of app</span></td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L58" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="58"></td>
+          <td id="file-deploy-sh-LC58" class="blob-code blob-code-inner js-file-line">sudo systemctl reload nginx</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L59" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="59"></td>
+          <td id="file-deploy-sh-LC59" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L60" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="60"></td>
+          <td id="file-deploy-sh-LC60" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Stop previous version of app</span></td>
+        </tr>
+        <tr>
+          <td id="file-deploy-sh-L61" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="61"></td>
+          <td id="file-deploy-sh-LC61" class="blob-code blob-code-inner js-file-line">sudo systemctl stop my_app@<span class="pl-smi">${port_in_use}</span></td>
+        </tr>
+  </tbody></table>
+</div>
+
+
+    </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/damonvjanis/f60e7efaba10eeabb830f3e9e97a10c9/raw/93c109adcbd1c2f5ecd7437e81db0d34503df6cb/deploy.sh" style="float:right">view raw</a>
+        <a href="https://gist.github.com/damonvjanis/f60e7efaba10eeabb830f3e9e97a10c9#file-deploy-sh">
+          deploy.sh
+        </a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+<script>var height = -1; var delayMs = 200; if (document) {document.domain = document.domain;}function notifyResize(height) {height = height ? height : document.documentElement.offsetHeight; var resized = false; if (window.donkey && donkey.resize) {donkey.resize(height);var elements = document.getElementsByClassName("gist-data"); for (var i = 0; i < elements.length; i++) {elements[i].style.overflow = "visible"}resized = true;}if (parent && parent._resizeIframe) {var obj = {iframe: window.frameElement, height: height}; parent._resizeIframe(obj); resized = true;}if (window.location && window.location.hash === "#amp=1" && window.parent && window.parent.postMessage) {window.parent.postMessage({sentinel: "amp", type: "embed-size", height: height}, "*");}if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.resize) {window.webkit.messageHandlers.resize.postMessage(height); resized = true;}return resized;}function maybeResize() {try {if (document.documentElement.offsetHeight != height && notifyResize()) {height = document.documentElement.offsetHeight;}delayMs = Math.min(delayMs * 2, 1000000); setTimeout(maybeResize, delayMs);} catch(error) {console.log('maybeResize error: ', error)}}maybeResize();</script><script defer="" src="./vaafb692b2aea4879b33c060e79fe94621666317369993" integrity="sha512-0ahDYl866UMhKuYcW078ScMalXqtFJggm7TmlUtp0UlD4eQk0Ixfnm5ykXKvGJNFjLMoortdseTfsRT8oCfgGA==" data-cf-beacon="{&quot;rayId&quot;:&quot;767a86732c0fdd50&quot;,&quot;token&quot;:&quot;0b5f665943484354a59c39c6833f7078&quot;,&quot;version&quot;:&quot;2022.11.0&quot;,&quot;si&quot;:100}" crossorigin="anonymous"></script>
+</body></html>

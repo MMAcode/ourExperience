@@ -1,3 +1,11 @@
+my vm operatin system: 
+debian-11-bullseye-v20220920 (Debian is one of the most popular Linux distributions.)
+
+install stuff (on debian Linux):
+sudo apt install xy
+sudo apt-get install xy
+Most Linux users suggest using the apt command instead of apt-get whenever you can. Not only is it easier to type and remember, it performs tasks much faster.
+
 # install zsh on linux sustem
 identify which shell is set as default
   echo $SHELL
