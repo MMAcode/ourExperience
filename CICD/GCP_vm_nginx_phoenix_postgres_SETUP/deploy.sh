@@ -2,7 +2,7 @@
 set -e
 
 # Update to latest version of code
-cd ~/fromGithub/optimized_nginx
+cd ~/fromGithub/optimized_nginx_wrapper/optimized_nginx
 git fetch
 git reset --hard origin/master
 MIX_ENV=prod mix deps.get
@@ -20,12 +20,12 @@ mix phx.digest # -> 'Check your digested files at "priv/static"'
 
 # Create release
 now_in_unix_seconds=$(date +'%s') # 1668471165 = $MMNOW
-# mix release --path ../releases/${now_in_unix_seconds}
-mix release --path ../releases/$MMNOW
+mix release --path ../releases/${now_in_unix_seconds}
+# mix release --path ../releases/$MMNOW
 
 # Update env var file with latest release name
-# sed -i 's/LATEST_RELEASE=.*/LATEST_RELEASE='$MMNOW'/g' ../env_vars
-sed -i.bak 's/LATEST_RELEASE=.*/LATEST_RELEASE='$MMNOW'/g' ../env_vars
+sed -i 's/LATEST_RELEASE=.*/LATEST_RELEASE='$now_in_unix_seconds'/g' ../env_vars
+# sed -i.bak 's/LATEST_RELEASE=.*/LATEST_RELEASE='$MMNOW'/g' ../env_vars
 
 # Find the port in use, and the available port
 if $(curl --output /dev/null --silent --head --fail localhost:4000); then
@@ -35,10 +35,13 @@ else
   port_in_use=4001
   open_port=4000
 fi
+# check with 'echo "$port_in_use $open_port"'
 
 # Update release env vars with new port and set non-conflicting node name
-echo "export PORT=${open_port}" >>../releases/$MMNOW/releases/0.1.0/env.sh
-echo "export RELEASE_NAME=${open_port}" >>../releases/$MMNOW/releases/0.1.0/env.sh # sets the name of the node when Erlang boots up. We can’t have two nodes with the same name running simultaneously, so we just set the node name to the same value as the open port to avoid conflicts.
+# echo "export PORT=${open_port}" >>../releases/$MMNOW/releases/0.1.0/env.sh
+echo "export PORT=${open_port}" >>../releases/${now_in_unix_seconds}/releases/0.1.0/env.sh
+# echo "export RELEASE_NAME=${open_port}" >>../releases/$MMNOW/releases/0.1.0/env.sh # sets the name of the node when Erlang boots up. We can’t have two nodes with the same name running simultaneously, so we just set the node name to the same value as the open port to avoid conflicts.
+echo "export RELEASE_NAME=${open_port}" >>../releases/${now_in_unix_seconds}/releases/0.1.0/env.sh # sets the name of the node when Erlang boots up. We can’t have two nodes with the same name running simultaneously, so we just set the node name to the same value as the open port to avoid conflicts.
 
 # Start new instance of app
 sudo systemctl start my_app@${open_port}
