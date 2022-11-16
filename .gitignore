@@ -9,3 +9,6 @@ erl_crash.dump
 /config/*.secret.exs
 .elixir_ls/
 .idea/
+
+# Miro added:
+.DS_Store
