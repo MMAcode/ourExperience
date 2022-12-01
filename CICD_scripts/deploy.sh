@@ -2,7 +2,9 @@
 set -e
 
 # Update to latest version of code
-cd ~/fromGithub/optimized_nginx_wrapper/optimized_nginx
+# cd ~/fromGithub/optimized_nginx_wrapper/optimized_nginx
+# SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+cd ~/ourExperienceWrapper/our_experience
 git fetch
 git reset --hard origin/master
 MIX_ENV=prod mix deps.get
