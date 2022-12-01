@@ -57,9 +57,11 @@ mix ecto.migrate
 
 # Update Nginx config to direct requests to new version of app
 sudo sed -i 's/server 127\.0\.0\.1\:.*/server 127.0.0.1:'$open_port\;'/g' /etc/nginx/sites-available/default
+# sudo sed -i 's/server 127\.0\.0\.1\:.*/server 127.0.0.1:4000\;/g' /etc/nginx/sites-available/default
 
 # Reload Nginx so it gracefully starts routing to new version of app
 sudo systemctl reload nginx
 
 # Stop previous version of app
 sudo systemctl stop my_app@${port_in_use}
+echo "all seems to have gone well... ;-)"
