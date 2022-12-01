@@ -1,33 +1,34 @@
 #!/bin/bash
-set -e
+set -e # any error will stop the build/script
 
-# Update to latest version of code
 # cd ~/fromGithub/optimized_nginx_wrapper/optimized_nginx
 # SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 cd ~/ourExperienceWrapper/our_experience
-git fetch
-git reset --hard origin/master
+
+git fetch && git reset --hard origin/main #master # Update to latest version of code
 MIX_ENV=prod mix deps.get
 
 # Optional CI steps
-CI=true mix test
+# CI=true mix test
 # mix credo --strict (credo is not used in example repo, commented out)
 
-# Build phase
 export MIX_ENV=prod
-mix compile # -> Generates "my_app app"
-npm install --prefix ./assets
-npm run deploy --prefix ./assets
+mix compile # # Build phase -> Generates "my_app/our_experience app"
+
+# npm and webpack were replaced for esbuild: https://hexdocs.pm/phoenix/asset_management.html
+# npm install --prefix ./assets
+# npm run deploy --prefix ./assets
+mix assets.deploy # -> needed only in production, otherwise runs automatically; Generates "our_experience priv/static" folder
+
 mix phx.digest # -> 'Check your digested files at "priv/static"'
 
-# Create release
-now_in_unix_seconds=$(date +'%s') # 1668471165 = $MMNOW
-mix release --path ../releases/${now_in_unix_seconds}
-# mix release --path ../releases/$MMNOW
+now_in_unix_seconds=$(date +'%s')                     # eg 1668471165
+mix release --path ../releases/${now_in_unix_seconds} # Create release
 
 # Update env var file with latest release name
-sed -i 's/LATEST_RELEASE=.*/LATEST_RELEASE='$now_in_unix_seconds'/g' ../env_vars
-# sed -i.bak 's/LATEST_RELEASE=.*/LATEST_RELEASE='$MMNOW'/g' ../env_vars
+
+if [ ! -f ../env_vars ]; then touch ../env_vars && echo 'LATEST_RELEASE=' >../env_vars; fi
+sed -i 's/LATEST_RELEASE=.*/LATEST_RELEASE='$now_in_unix_seconds'/g' ../env_vars # this command does not work on MAC systems with this -i flag!
 
 # Find the port in use, and the available port
 if $(curl --output /dev/null --silent --head --fail localhost:4000); then
@@ -42,11 +43,9 @@ fi
 # Update release env vars with new port and set non-conflicting node name
 # echo "export PORT=${open_port}" >>../releases/$MMNOW/releases/0.1.0/env.sh
 echo "export PORT=${open_port}" >>../releases/${now_in_unix_seconds}/releases/0.1.0/env.sh
-# echo "export RELEASE_NAME=${open_port}" >>../releases/$MMNOW/releases/0.1.0/env.sh # sets the name of the node when Erlang boots up. We can’t have two nodes with the same name running simultaneously, so we just set the node name to the same value as the open port to avoid conflicts.
 echo "export RELEASE_NAME=${open_port}" >>../releases/${now_in_unix_seconds}/releases/0.1.0/env.sh # sets the name of the node when Erlang boots up. We can’t have two nodes with the same name running simultaneously, so we just set the node name to the same value as the open port to avoid conflicts.
 
-# Start new instance of app
-sudo systemctl start my_app@${open_port}
+sudo systemctl start our_experience@${open_port} # Start new instance of app; systemclt works only in linux systems
 
 # Pause script till app is fully up
 until $(curl --output /dev/null --silent --head --fail localhost:$open_port); do
@@ -54,16 +53,12 @@ until $(curl --output /dev/null --silent --head --fail localhost:$open_port); do
   sleep 1
 done
 
-# Run migrations
-mix ecto.migrate
+mix ecto.migrate # Run migrations
 
-# Update Nginx config to direct requests to new version of app
-sudo sed -i 's/server 127\.0\.0\.1\:.*/server 127.0.0.1:'$open_port\;'/g' /etc/nginx/sites-available/default
+sudo sed -i 's/server 127\.0\.0\.1\:.*/server 127.0.0.1:'$open_port\;'/g' /etc/nginx/sites-available/default # Update Nginx config to direct requests to new version of app
 # sudo sed -i 's/server 127\.0\.0\.1\:.*/server 127.0.0.1:4000\;/g' /etc/nginx/sites-available/default
 
-# Reload Nginx so it gracefully starts routing to new version of app
-sudo systemctl reload nginx
-
-# Stop previous version of app
-sudo systemctl stop my_app@${port_in_use}
+sudo systemctl reload nginx                       # Reload Nginx so it gracefully starts routing to new version of app
+sudo systemctl stop our_experience@${port_in_use} # Stop previous version of app
+set +e
 echo "all seems to have gone well... ;-)"
