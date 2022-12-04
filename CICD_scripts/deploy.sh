@@ -12,8 +12,7 @@ MIX_ENV=prod mix deps.get
 # CI=true mix test
 # mix credo --strict (credo is not used in example repo, commented out)
 
-export MIX_ENV=prod
-mix compile # # Build phase -> Generates "my_app/our_experience app"
+export MIX_ENV=prod && mix compile # Build phase -> Generates "our_experience app"
 
 # npm and webpack were replaced for esbuild: https://hexdocs.pm/phoenix/asset_management.html
 # npm install --prefix ./assets
@@ -41,10 +40,10 @@ fi
 # check with 'echo "$port_in_use $open_port"'
 
 # Update release env vars with new port and set non-conflicting node name
-# echo "export PORT=${open_port}" >>../releases/$MMNOW/releases/0.1.0/env.sh
 echo "export PORT=${open_port}" >>../releases/${now_in_unix_seconds}/releases/0.1.0/env.sh
 echo "export RELEASE_NAME=${open_port}" >>../releases/${now_in_unix_seconds}/releases/0.1.0/env.sh # sets the name of the node when Erlang boots up. We can’t have two nodes with the same name running simultaneously, so we just set the node name to the same value as the open port to avoid conflicts.
 
+# requires systemd setup first, before running this script
 sudo systemctl start our_experience@${open_port} # Start new instance of app; systemclt works only in linux systems
 
 # Pause script till app is fully up
