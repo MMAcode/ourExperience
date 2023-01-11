@@ -32,6 +32,8 @@ copy file to VM: from root directory of this git project run:
  (https://cloud.google.com/compute/docs/instances/transfer-files)
 $ gcloud compute scp --zone "us-central1-c" ~/projects/miro/ourExperience/CICD/GCP/miroScriptsFor_GCP_VM.sh instance-1:~/
 $ gcloud compute scp --zone "us-central1-c" ~/scripts instance-1:~/
+copy secrets:
+$ gcloud compute scp --zone "us-central1-c" ~/projects/miro/ourExperienceWrapper/our_experience/config/prod.secret.exs instance-1:~/ourExperienceWrapper/our_experience/config/
 
 then in the GCP cli run:
 $ echo ". ~/miroScriptsFor_GCP_VM.sh" >>./.bashrc && cat ./.bashrc
