@@ -17,7 +17,9 @@ export MIX_ENV=prod && mix compile # Build phase -> Generates "our_experience ap
 # npm and webpack were replaced for esbuild: https://hexdocs.pm/phoenix/asset_management.html
 # npm install --prefix ./assets
 # npm run deploy --prefix ./assets
-mix assets.deploy # -> needed only in production, otherwise runs automatically; Generates "our_experience priv/static" folder
+
+cd ~/assets && npm install quill --save && cd .. #to download quill with npm - https://hexdocs.pm/phoenix/1.7.0-rc.0/asset_management.html#third-party-js-packages
+mix assets.deploy                                # -> needed only in production, otherwise runs automatically; Generates "our_experience priv/static" folder
 
 mix phx.digest # -> 'Check your digested files at "priv/static"'
 
