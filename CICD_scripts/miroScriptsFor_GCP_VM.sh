@@ -47,6 +47,7 @@ updatePostgresPassword() {
 }
 
 OEupdate() {
+  cd ~/ourExperienceWrapper/our_experience
   git fetch
   git reset --hard origin/main
   mix deps.get
