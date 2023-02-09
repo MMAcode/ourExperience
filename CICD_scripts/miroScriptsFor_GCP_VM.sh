@@ -4,11 +4,11 @@ alias mm='cat ~/miroBash01.sh'
 
 # Docker
 alias d='sudo docker'
-sh(){
+sh() {
   sudo docker container exec -it $1 sh
-  }
+}
 
-swap1GB(){ # https://damonvjanis.medium.com/archive-phoenix-deployments-on-gcp-with-nginx-911730f84d3b
+swap1GB() { # https://damonvjanis.medium.com/archive-phoenix-deployments-on-gcp-with-nginx-911730f84d3b
   set -e
   sudo fallocate -l 1G /swapfile
   sudo chmod 600 /swapfile
@@ -20,7 +20,7 @@ swap1GB(){ # https://damonvjanis.medium.com/archive-phoenix-deployments-on-gcp-w
   set +e
 }
 
-installSoftware(){
+installSoftware() {
   set -e
   sudo apt-get install elixir # https://elixir-lang.org/install.html
   sudo apt install nodejs npm
@@ -35,7 +35,22 @@ installSoftware(){
 ##  history # check it was erased
 
 #psql -U postgres postgres (= username, dbName)
-then in psql
-
-
+# then in psql
 #}
+
+updatePostgresPassword() {
+  HISTCONTROL=ignorespace && echo $1
+  #  sudo -u postgres psql
+  #  \password postgres
+  #  (paste the password you generated and hit enter)
+  #  (now put \q and hit enter to quit)
+}
+
+OEupdate() {
+  git fetch
+  git reset --hard origin/main
+  mix deps.get
+  mix compile
+  mix ecto.migrate
+  mix phx.server
+}
