@@ -51,6 +51,7 @@ OEupdate() {
   git fetch
   git reset --hard origin/main
   mix deps.get
+  npm install --prefix ./assets
   mix compile
   mix assets.deploy
   mix ecto.migrate
